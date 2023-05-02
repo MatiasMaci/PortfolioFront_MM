@@ -1,0 +1,9 @@
+div {
+    max-width: 500px;
+    display: block;
+    text-align: center;
+    background-color: beige;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+}

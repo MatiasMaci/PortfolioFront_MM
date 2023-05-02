@@ -1,0 +1,11 @@
+a {
+    background-color: beige;
+    margin: auto;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.centralizado {
+    text-align: center;
+    margin: 15px;
+}

@@ -1,0 +1,14 @@
+.central {
+    background-color: black;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.imagenfoto{
+    border-radius: 40%;
+    box-shadow: 3px gray;
+    width: 70%;
+    margin: 5px;
+    text-align: center;
+}
