@@ -5,3 +5,7 @@
     padding: 10px;
     border-radius: 10px;
 }
+.centrar{
+    margin:auto;
+    text-align: center;
+}

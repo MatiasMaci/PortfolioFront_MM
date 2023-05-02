@@ -1,6 +1,26 @@
 header{
     background-color: black;
 }
-.derecha {
-    float: right;
+.x{
+    display:flex;
+    align-items: center;
+    margin-right: 5px;
+}
+.btn{
+    border-width: medium;
+    margin: 5px;
+}
+img{
+    margin: 5px;
+}
+
+@media(min-width: 381px) {
+    .derecha {
+            text-align: end;
+        }
+}
+@media(max-width: 380px){
+    .derecha {
+            text-align: center;
+        }
 }
