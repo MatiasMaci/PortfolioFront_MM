@@ -13,6 +13,8 @@ import { AchievementsComponent } from './components/achievements/achievements.co
 import { ProyectsComponent } from './components/proyects/proyects.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     AboutProyectComponent,
     AchievementsComponent,
     ProyectsComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
