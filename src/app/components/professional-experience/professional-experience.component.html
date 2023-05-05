@@ -1,6 +1,22 @@
 <div class="central">
     <h2>Experiencia Profesional</h2>
+    <button type="button" class="btn btn-outline-success" routerLink="/nuevaExperiencia" *ngIf="isLogged">+</button>
     <ul>
+        <div *ngFor="let Experiencia of expe">
+            <div class="row">
+                <li class="col-2">
+                    <img src="../../../assets/fotoperfil.jpg" class="img-fluid imagenfoto" alt="Foto Perfil">
+                </li>
+                <div class="col-10" style="margin: auto;">
+                    <h5>{{Experiencia.infoPuesto}}</h5>
+                    <p style="display: inline;">{{Experiencia.nombreEmpresa}} </p>
+                    <p style="display: inline;">(Abril 2022 - Febrero 2023)</p>
+                    <button class="btn btn-success" *ngIf="isLogged" routerLink="/editExperiencia/{{Experiencia.id}}"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Experiencia.id)" ><i class="bi bi-x-lg"></i></button>
+                </div>
+            </div>
+        </div>
+<!--
     <div class="row">
         <li class="col-2">
             <img src="../../../assets/fotoperfil.jpg" class="img-fluid imagenfoto" alt="Foto Perfil">
@@ -31,5 +47,6 @@
             <p style="display: inline;">(Abril 2020 - Enero 2022)</p>
         </div>
     </div>
+-->
     </ul>
 </div>
