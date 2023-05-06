@@ -1,54 +1,79 @@
 <div class="central">
     <h3>Habilidades</h3>
-<!--
-    <ul>
-        <li>Arreglos de dispositivos electronicos</li>
-        <li>Instalaciones electricas y carpinteria</li>
-        <li>Programacion(Lenguaje C, Javascript, Css, Typescrip)</li>
-        <li>Programas:
-            <ul>
-                <li>Proteus</li>
-                <li>Mplab</li>
-                <li>AutoCad</li>
-                <li>TexStudio</li>
-                <li>LOGO(PLC)</li>
-                <li>Visual Studio Code</li>
-            </ul>
-        </li>
-    </ul>
--->
-<div class="row centrar">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-        <circle-progress [percent]="85" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
-            [showImage]="true" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
-            [outerStrokeGradientStopColor]="'#53a9ff'" [outerStrokeWidth]="16" [innerStrokeWidth]="3"
-            [outerStrokeColor]="'blue'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="1000">
-        </circle-progress>
+    <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
+    <div class="row centrar">    
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3"  *ngFor="let Skills of ski">
+                
+                <circle-progress [percent]="(Skills.percent)" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
+                [title]="(Skills.nombreSkill)" [showImage]="true" [showUnits]="false" [showSubtitle]="false"
+                    [showImage]="false" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
+                    [outerStrokeGradientStopColor]="'#53a9ff'" [outerStrokeWidth]="16" [innerStrokeWidth]="3"
+                    [outerStrokeColor]="'blue'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="1000">
+                </circle-progress>
+                <div>
+                <button style="display: inline;" class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Skills.id)"><i
+                    class="bi bi-pencil"></i></button>
+                <button style="display: inline;" class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Skills.id)"><i class="bi bi-x-lg"></i></button></div>
+            </div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-        <circle-progress [percent]="85" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
-            [showImage]="true" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
-            [outerStrokeGradientStopColor]="'#53a9ff'" [outerStrokeWidth]="16" [innerStrokeWidth]="3"
-            [outerStrokeColor]="'blue'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="1000">
-        </circle-progress>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-        <circle-progress [percent]="85" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
-            [showImage]="true" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
-            [outerStrokeGradientStopColor]="'#53a9ff'" [outerStrokeWidth]="16" [innerStrokeWidth]="3"
-            [outerStrokeColor]="'blue'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="1000">
-        </circle-progress>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-        <circle-progress [percent]="85" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
-            [showImage]="true" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
-            [outerStrokeGradientStopColor]="'#53a9ff'" [outerStrokeWidth]="16" [innerStrokeWidth]="3"
-            [outerStrokeColor]="'blue'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="1000">
-        </circle-progress>
-    </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h4>Ingles</h4>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated background-color:blue" role="progressbar"
+                        style="width: 55%" aria-valuenow="55" aria-valuemin="10" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isLogged && agregarCurso">
+            <h3 class="fw-bold mb-2 text-uppercase">Please enter new education</h3>
+            <div class="row">
+                <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="nombreSkill">Nombre del curso o formacion</label>
+                        <input type="text" id="nombreSkill" name="nombreSkill" class="form-control" [(ngModel)]="nombreSkill"
+                            required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="percent">Descripcion del curso</label>
+                        <input type="number" id="percent" name="percent" class="form-control" [(ngModel)]="percent"
+                            required />
+                    </div>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="isLogged && skillEdit">
+            <h3 class="fw-bold mb-2 text-uppercase">Please edit the education</h3>
+            <div class="row">
+                <form #f="ngForm" (ngSubmit)="onUpdate(skillEdit.id)" novalidate>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="nombreSkill">Nombre del curso o formacion</label>
+                        <input type="text" id="nombreSkill" name="nombreSkill" class="form-control"
+                            [(ngModel)]="skillEdit.nombreSkill" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="percent">Descripcion del curso</label>
+                        <input type="number" id="percent" name="percent" class="form-control" [(ngModel)]="skillEdit.percent"
+                            required />
+                    </div>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                </form>
+            </div>
+        </div>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <!--
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+            <circle-progress [percent]="85" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
+                [showImage]="true" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
+                [outerStrokeGradientStopColor]="'#53a9ff'" [outerStrokeWidth]="16" [innerStrokeWidth]="3"
+                [outerStrokeColor]="'blue'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="1000">
+            </circle-progress>
+        </div>
+        -->
+    <!--
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <h4>Ingles</h4>
         <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated background-color:blue" role="progressbar"
@@ -56,30 +81,21 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <h4>Ingles</h4>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated background-color:blue" role="progressbar"
-                style="width: 55%" aria-valuenow="55" aria-valuemin="10" aria-valuemax="100">
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <h4>Ingles</h4>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated background-color:blue" role="progressbar"
-                style="width: 55%" aria-valuenow="55" aria-valuemin="10" aria-valuemax="100">
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <h4>Ingles</h4>
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated background-color:blue" role="progressbar"
-                style="width: 55%" aria-valuenow="55" aria-valuemin="10" aria-valuemax="100">
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
+    -->
+    <!--
+        <ul>
+            <li>Arreglos de dispositivos electronicos</li>
+            <li>Instalaciones electricas y carpinteria</li>
+            <li>Programacion(Lenguaje C, Javascript, Css, Typescrip)</li>
+            <li>Programas:
+                <ul>
+                    <li>Proteus</li>
+                    <li>Mplab</li>
+                    <li>AutoCad</li>
+                    <li>TexStudio</li>
+                    <li>LOGO(PLC)</li>
+                    <li>Visual Studio Code</li>
+                </ul>
+            </li>
+        </ul>
+    -->
