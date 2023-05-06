@@ -13,7 +13,7 @@
                     <p style="display: inline;">(Abril 2022 - Febrero 2023)</p>
                     <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Education.id)" ><i
                             class="bi bi-pencil"></i></button>
-                    <button class="btn btn-danger" *ngIf="isLogged" ><i
+                    <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Education.id)"><i
                             class="bi bi-x-lg"></i></button>
                 </div>
             </div>

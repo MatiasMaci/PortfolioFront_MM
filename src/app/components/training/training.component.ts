@@ -73,6 +73,8 @@ export class TrainingComponent implements OnInit {
     if (id != undefined) {
       this.eduServ.delete(id).subscribe(data => {
         this.cargarEducation();
+        alert("Se elimino correctamente");
+        window.location.reload();
       }, err => {
         alert("No se pudo eliminar");
         }
