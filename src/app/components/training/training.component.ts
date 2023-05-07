@@ -88,9 +88,11 @@ export class TrainingComponent implements OnInit {
       data => {
         alert("Educacion añadida");
         this.router.navigate(['']);
+        window.location.reload();
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
+        window.location.reload();
       }
     )
   }
