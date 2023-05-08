@@ -1,9 +1,59 @@
 <div class="central">
     <h3>Proyectos</h3>
+    <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
+    <ul>
+        <div *ngFor="let Proyectos of proj">
+            <li>
+                <h5>{{Proyectos.nombreProject}}</h5>
+                <p style="display: inline;">{{Proyectos.informacion}} </p>
+                <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Proyectos.id)"><i
+                        class="bi bi-pencil"></i></button>
+                <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Proyectos.id)"><i
+                        class="bi bi-x-lg"></i></button>
+            </li>
+        </div>
+        <div *ngIf="isLogged && agregarProyecto">
+            <h3 class="fw-bold mb-2 text-uppercase">Please enter new project</h3>
+            <div class="row">
+                <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="nombreProject">Nombre del proyecto</label>
+                        <input type="text" id="nombreProject" name="nombreProject" class="form-control" [(ngModel)]="nombreProject" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="informacion">Descripcion del proyecto</label>
+                        <input type="text" id="informacion" name="informacion" class="form-control"
+                            [(ngModel)]="informacion" required />
+                    </div>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="isLogged && projEdit">
+            <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected project</h3>
+            <div class="row">
+                <form #f="ngForm" (ngSubmit)="onUpdate(projEdit.id)" novalidate>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="nombreProject">Nombre del proyecto</label>
+                        <input type="text" id="nombreProject" name="nombreProject" class="form-control"
+                            [(ngModel)]="projEdit.nombreProject" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="informacion">Descripcion del proyecto</label>
+                        <input type="text" id="informacion" name="informacion" class="form-control"
+                            [(ngModel)]="projEdit.informacion" required />
+                    </div>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
+                </form>
+            </div>
+        </div>
+    </ul>
+</div>
+<!--
     <ul>
         <li>Portfolio Web</li>
         <li>Parlante</li>
         <li>Generador de señales</li>
         <li>SIstema de seguridad</li>
     </ul>
-</div>
+-->
