@@ -10,7 +10,7 @@
                 <div class="col-10" style="margin: auto;">
                     <h5>{{Education.nombreCurso}}</h5>
                     <p style="display: inline;">{{Education.infoCurso}} </p>
-                    <p style="display: inline;">(Abril 2022 - Febrero 2023)</p>
+                    <p style="display: inline;">({{Education.fechaInicio}} - {{Education.fechaFin}})</p>
                     <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Education.id)" ><i
                             class="bi bi-pencil"></i></button>
                     <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Education.id)"><i
@@ -33,6 +33,19 @@
                         <input type="text" id="infoCurso" name="infoCurso" class="form-control" [(ngModel)]="infoCurso"
                             required />
                     </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaInicio">Fecha de inicio</label>
+                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="fechaInicio"
+                            required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaFin">Fecha de fin</label>
+                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="fechaFin" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="imagen">Imagen/Logo del curso/establecimiento/formacion</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="imagen" required />
+                    </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
                 </form>
             </div>
@@ -43,14 +56,27 @@
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onUpdate(eduEdit.id)" novalidate>
                     <div class="form-group mb-4">
-                        <label class="form-label" for="nombreCurso">Nombre del curso o formacion</label>
+                        <label class="form-label" for="nombreCurso">Nombre del curso/establecimiento/formacion</label>
                         <input type="text" id="nombreCurso" name="nombreCurso" class="form-control" [(ngModel)]="eduEdit.nombreCurso"
                             required />
                     </div>
                     <div class="form-group mb-4">
-                        <label class="form-label" for="infoCurso">Descripcion del curso</label>
+                        <label class="form-label" for="infoCurso">Descripcion de la formacion</label>
                         <input type="text" id="infoCurso" name="infoCurso" class="form-control" [(ngModel)]="eduEdit.infoCurso"
                             required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaInicio">Fecha de inicio</label>
+                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="eduEdit.fechaInicio"
+                            required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaFin">Fecha de fin</label>
+                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="eduEdit.fechaFin" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="imagen">Imagen/Logo del curso/establecimiento/formacion</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="eduEdit.imagen" required />
                     </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
                 </form>

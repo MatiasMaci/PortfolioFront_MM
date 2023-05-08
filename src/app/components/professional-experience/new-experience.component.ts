@@ -17,7 +17,7 @@ export class NewExperienceComponent implements OnInit{
   ngOnInit(): void {
     
   }
-
+/*
   onCreate() {
     const expe = new Experiencia(this.nombreEmpresa, this.infoPuesto);
     this.expServ.save(expe).subscribe(
@@ -29,5 +29,5 @@ export class NewExperienceComponent implements OnInit{
         this.router.navigate(['']);
       }
     )
-  }
+  }*/
 }

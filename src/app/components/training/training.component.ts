@@ -19,6 +19,9 @@ export class TrainingComponent implements OnInit {
 
   nombreCurso: string = '';
   infoCurso: string = '';
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  imagen: string = '';
 
   isEditing = false;
   isLogged = false;
@@ -86,7 +89,7 @@ export class TrainingComponent implements OnInit {
   }
    
   onCreate() {
-    const educ = new Education(this.nombreCurso, this.infoCurso);
+    const educ = new Education(this.nombreCurso, this.infoCurso, this.fechaInicio, this.fechaFin, this.imagen);
     this.eduServ.save(educ).subscribe(
       data => {
         alert("Educacion añadida");

@@ -10,7 +10,7 @@
                 <div class="col-10" style="margin: auto;">
                     <h5>{{Experiencia.infoPuesto}}</h5>
                     <p style="display: inline;">{{Experiencia.nombreEmpresa}} </p>
-                    <p style="display: inline;">(Abril 2022 - Febrero 2023)</p>
+                    <p style="display: inline;">({{Experiencia.fechaInicio}} - {{Experiencia.fechaFin}})</p>
                     <button style="display: inline;" class="btn btn-success" *ngIf="isLogged" 
                     (click)="onEditInit(Experiencia.id)"><i class="bi bi-pencil"></i></button>
                     <button style="display: inline;" class="btn btn-danger" *ngIf="isLogged" 
@@ -34,6 +34,18 @@
                         <label class="form-label" for="infoPuesto">Descripcion del puesto</label>
                         <input type="text" id="infoPuesto" name="infoPuesto" class="form-control" [(ngModel)]="infoPuesto" required />
                     </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaInicio">Fecha de inicio</label>
+                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="fechaInicio" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaFin">Fecha de fin</label>
+                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="fechaFin" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="imagen">Imagen/Logo de la empresa</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="imagen" required />
+                    </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
                 </form>
             </div>
@@ -52,6 +64,18 @@
                         <label class="form-label" for="infoPuesto">Porcentaje de la habilidad</label>
                         <input type="text" id="infoPuesto" name="infoPuesto" class="form-control" [(ngModel)]="expEdit.infoPuesto"
                             required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaInicio">Fecha de inicio</label>
+                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="expEdit.fechaInicio" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="fechaFin">Fecha de fin</label>
+                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="expEdit.fechaFin" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="imagen">Imagen/Logo de la empresa</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="expEdit.imagen" required />
                     </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
                 </form>

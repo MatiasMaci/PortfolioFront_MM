@@ -19,6 +19,9 @@ export class ProfessionalExperienceComponent implements OnInit {
 
   nombreEmpresa: string = '';
   infoPuesto: string = '';
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  imagen: string = '';
 
   isEditing = false;
   isLogged = false;
@@ -85,7 +88,7 @@ export class ProfessionalExperienceComponent implements OnInit {
   }
 
   onCreate() {
-    const expe = new Experiencia(this.nombreEmpresa, this.infoPuesto);
+    const expe = new Experiencia(this.nombreEmpresa, this.infoPuesto, this.fechaInicio, this.fechaFin, this.imagen);
     this.expServ.save(expe).subscribe(
       data => {
         alert("Habilidad añadida");
