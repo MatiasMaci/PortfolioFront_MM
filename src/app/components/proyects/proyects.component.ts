@@ -20,7 +20,7 @@ export class ProyectsComponent implements OnInit {
   nombreProject: string = '';
   informacion: string = '';
 
-
+  isEditing = false;
   isLogged = false;
   agregarProyecto = false;
 
@@ -42,6 +42,7 @@ export class ProyectsComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarProyecto = false;
+      this.isEditing = !this.isEditing;
       console.log(idx);
       this.projServ.details(idx).subscribe(datax => {
         this.projEdit = datax
@@ -97,6 +98,7 @@ export class ProyectsComponent implements OnInit {
 
   onClick() {
     this.agregarProyecto = !this.agregarProyecto;
+    this.isEditing = false;
   }
 
 }

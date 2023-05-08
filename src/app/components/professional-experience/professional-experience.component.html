@@ -1,8 +1,8 @@
 <div class="central">
     <h2>Experiencia Profesional</h2>
-    <button type="button" class="btn btn-outline-success" routerLink="/nuevaExperiencia" *ngIf="isLogged">+</button>
+    <button type="button" class="btn btn-outline-success" (click)="onClick()" *ngIf="isLogged">+</button>
     <ul>
-        <div *ngFor="let Experiencia of expe">
+        <div *ngFor="let Experiencia of exp"><!--Repeticion de las experiencias encontradas en una lista-->
             <div class="row">
                 <li class="col-2">
                     <img src="../../../assets/fotoperfil.jpg" class="img-fluid imagenfoto" alt="Foto Perfil">
@@ -11,9 +11,50 @@
                     <h5>{{Experiencia.infoPuesto}}</h5>
                     <p style="display: inline;">{{Experiencia.nombreEmpresa}} </p>
                     <p style="display: inline;">(Abril 2022 - Febrero 2023)</p>
-                    <button class="btn btn-success" *ngIf="isLogged" routerLink="/editExperiencia/{{Experiencia.id}}"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Experiencia.id)" ><i class="bi bi-x-lg"></i></button>
+                    <button style="display: inline;" class="btn btn-success" *ngIf="isLogged" 
+                    (click)="onEditInit(Experiencia.id)"><i class="bi bi-pencil"></i></button>
+                    <button style="display: inline;" class="btn btn-danger" *ngIf="isLogged" 
+                    (click)="onDelete(Experiencia.id)"><i class="bi bi-x-lg"></i></button>
+                    <!--Botones de edicion-->
                 </div>
+                
+            </div>
+        </div>
+        <div *ngIf="isLogged && agregarExperiencia">
+            <!--Formulario para agregar una habilidad si el usuario esta loggeado-->
+            <h3 class="fw-bold mb-2 text-uppercase">Please enter new experience</h3>
+            <div class="row">
+                <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="nombreEmpresa">Nombre de la empresa</label>
+                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-control" [(ngModel)]="nombreEmpresa"
+                            required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="infoPuesto">Descripcion del puesto</label>
+                        <input type="text" id="infoPuesto" name="infoPuesto" class="form-control" [(ngModel)]="infoPuesto" required />
+                    </div>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="isLogged && expEdit && isEditing">
+            <!--Formulario para editar una habilidad si el usuario esta loggeado-->
+            <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected skill</h3>
+            <div class="row">
+                <form #f="ngForm" (ngSubmit)="onUpdate(expEdit.id)" novalidate>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="nombreEmpresa">Nombre de la habilidad</label>
+                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-control"
+                            [(ngModel)]="expEdit.nombreEmpresa" required />
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="infoPuesto">Porcentaje de la habilidad</label>
+                        <input type="text" id="infoPuesto" name="infoPuesto" class="form-control" [(ngModel)]="expEdit.infoPuesto"
+                            required />
+                    </div>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
+                </form>
             </div>
         </div>
 <!--

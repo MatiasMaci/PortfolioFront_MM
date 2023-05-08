@@ -1,43 +1,39 @@
 <div class="central">
     <div>
         <img src="../../../assets/banner4.avif" class="img-fluid" width="100%" height="50%">
+        <!-- editar banner-->
     </div>
     <div class="row" style="text-align: center;">
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"><!--Foto y nombre del usuario-->
             <img src={{persEdit.imagen}} class="img-fluid imagenfoto" alt="Foto Perfil">
-            <p>{{persEdit.nombre}} Macijaukas</p>
+            <p>{{persEdit.nombre}} {{persEdit.apellido}}</p>
             <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInitPers()"><i
                     class="bi bi-pencil"></i></button>
         </div>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" style="margin: auto;">
-            <h1>Acerca de mi</h1>
+            <h1>Acerca de mi</h1><!--Informacion del usuario-->
             <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInitAbout()"><i class="bi bi-pencil"></i></button>
-        <!--
-            <p>Soy tecnico electronico, autodidacta, con ganas de aprender cosas nuevas
-                y poder desarrollarme mejor en diferentes hambitos
-            </p>
-        -->
             <p>{{aboutEdit.informacion}}
             </p>
             <li>Ciudad: {{aboutEdit.ciudad}}, {{aboutEdit.provincia}}</li>
             <li>Edad: {{aboutEdit.edad}} años</li>
         </div>
     </div>
-    <div *ngIf="isLogged && editarPers">
+    <div *ngIf="isLogged && editarPers"><!--Formulario para editar foto y nombre si el usuario esta loggeado-->
         <h3 class="fw-bold mb-2 text-uppercase">Please edit person</h3>
         <div class="row">
             <form #f="ngForm" (ngSubmit)="onUpdatePersona(persEdit.id)" novalidate>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="nombre">Nombre del curso o formacion</label>
+                    <label class="form-label" for="nombre">Nombre del usuario</label>
                     <input type="text" id="nombre" name="nombre" class="form-control"
                         [(ngModel)]="persEdit.nombre" required />
                 </div>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="apellido">Nombre del curso o formacion</label>
+                    <label class="form-label" for="apellido">Apellido del usuario</label>
                     <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="persEdit.apellido" required />
                 </div>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="imagen">Descripcion del curso</label>
+                    <label class="form-label" for="imagen">Imagen de perfil</label>
                     <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="persEdit.imagen"
                         (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" />
                 </div>
@@ -46,35 +42,40 @@
                     <img [src]="imgServ.url">
                 </div>
             -->
-                <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
             </form>
         </div>
     </div>
-    <div *ngIf="isLogged && editarAbout">
-        <h3 class="fw-bold mb-2 text-uppercase">Please edit person</h3>
+    <div *ngIf="isLogged && editarAbout"><!--Formulario para editar informacion si el usuario esta loggeado-->
+        <h3 class="fw-bold mb-2 text-uppercase">Please edit information</h3>
         <div class="row">
             <form #f="ngForm" (ngSubmit)="onUpdateAbout(aboutEdit.id)" novalidate>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="informacion">Nombre del curso o formacion</label>
+                    <label class="form-label" for="informacion">Informacion acerca del usuario</label>
                     <input type="text" id="informacion" name="informacion" class="form-control" [(ngModel)]="aboutEdit.informacion"
                         required />
                 </div>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="ciudad">Nombre del curso o formacion</label>
+                    <label class="form-label" for="ciudad">Ciudad</label>
                     <input type="text" id="ciudad" name="ciudad" class="form-control" [(ngModel)]="aboutEdit.ciudad"
                         required />
                 </div>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="provincia">Descripcion del curso</label>
+                    <label class="form-label" for="provincia">Provincia</label>
                     <input type="text" id="provincia" name="provincia" class="form-control" [(ngModel)]="aboutEdit.provincia" required/>
                 </div>
                 <div class="form-group mb-4">
-                    <label class="form-label" for="edad">Descripcion del curso</label>
+                    <label class="form-label" for="edad">Edad</label>
                     <input type="number" id="edad" name="edad" class="form-control" [(ngModel)]="aboutEdit.edad"
                         required />
                 </div>
-                <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
             </form>
         </div>
     </div>
 </div>
+            <!--
+                <p>Soy tecnico electronico, autodidacta, con ganas de aprender cosas nuevas
+                     y poder desarrollarme mejor en diferentes hambitos
+                </p>
+            -->

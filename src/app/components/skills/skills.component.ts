@@ -40,12 +40,14 @@ export class SkillsComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarCurso = false;
+      this.isEditing = !this.isEditing;
       console.log(idx);
       this.skillServ.details(idx).subscribe(datax => {
         this.skillEdit = datax
       }, err => {
-        alert("Error al modificar educacion");
+        alert("Error al modificar habilidad");
         this.router.navigate([''])
+        window.location.reload();
       }
       )
     }
@@ -57,7 +59,7 @@ export class SkillsComponent implements OnInit {
       this.router.navigate(['']);
       window.location.reload();
     }, err => {
-      alert("Error al modificar experiencia");
+      alert("Error al modificar habilidad");
       this.router.navigate([''])
       window.location.reload();
     })
@@ -77,6 +79,7 @@ export class SkillsComponent implements OnInit {
         window.location.reload();
       }, err => {
         alert("No se pudo eliminar");
+        window.location.reload();
       }
       )
     }
@@ -86,16 +89,19 @@ export class SkillsComponent implements OnInit {
     const skix = new Skills(this.nombreSkill, this.percent);
     this.skillServ.save(skix).subscribe(
       data => {
-        alert("Educacion añadida");
+        alert("Habilidad añadida");
         this.router.navigate(['']);
+        window.location.reload();
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
+        window.location.reload();
       }
     )
   }
 
   onClick() {
+    this.isEditing = false;
     this.agregarCurso = !this.agregarCurso;
   }
 

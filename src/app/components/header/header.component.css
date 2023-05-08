@@ -1,7 +1,7 @@
 header{
     background-color: black;
 }
-.x{
+.centrar{
     display:flex;
     align-items: center;
     margin-right: 5px;

@@ -5,3 +5,10 @@
     padding: 10px;
     border-radius: 10px;
 }
+
+.margen{
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    align-content: center;
+}

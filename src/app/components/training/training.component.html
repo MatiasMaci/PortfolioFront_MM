@@ -2,7 +2,7 @@
     <h3>Formación Academica</h3>
     <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
     <ul>
-        <div *ngFor="let Education of edu">
+        <div *ngFor="let Education of edu"><!--Repeticion de las formaciones encontradas en una lista-->
             <div class="row">
                 <li class="col-2">
                     <img src="../../../assets/fotoperfil.jpg" class="img-fluid imagenfoto" alt="Foto Perfil">
@@ -15,11 +15,12 @@
                             class="bi bi-pencil"></i></button>
                     <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Education.id)"><i
                             class="bi bi-x-lg"></i></button>
+                            <!--Botones de edicion-->
                 </div>
             </div>
         </div>
-        <div *ngIf="isLogged && agregarCurso">
-            <h3 class="fw-bold mb-2 text-uppercase">Please enter new education</h3>
+        <div *ngIf="isLogged && agregarCurso"><!--Formulario para agregar una formacion si el usuario esta loggeado-->
+            <h3 class="fw-bold mb-2 text-uppercase">Please enter new training</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
                     <div class="form-group mb-4">
@@ -32,12 +33,13 @@
                         <input type="text" id="infoCurso" name="infoCurso" class="form-control" [(ngModel)]="infoCurso"
                             required />
                     </div>
-                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
                 </form>
             </div>
         </div>
-        <div *ngIf="isLogged && eduEdit">
-            <h3 class="fw-bold mb-2 text-uppercase">Please edit the education</h3>
+        <div *ngIf="isLogged && eduEdit && isEditing">
+            <!--Formulario para editar una formacion si el usuario esta loggeado-->
+            <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected training</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onUpdate(eduEdit.id)" novalidate>
                     <div class="form-group mb-4">
@@ -50,7 +52,7 @@
                         <input type="text" id="infoCurso" name="infoCurso" class="form-control" [(ngModel)]="eduEdit.infoCurso"
                             required />
                     </div>
-                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
                 </form>
             </div>
         </div>

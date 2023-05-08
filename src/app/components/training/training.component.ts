@@ -14,7 +14,7 @@ export class TrainingComponent implements OnInit {
   eduEdit: Education = null;
   edu: Education[] = [];
   constructor(private eduServ: EducationService, private tokenServ: TokenService,
-    private router: Router, private activatedRouter: ActivatedRoute) {
+    private router: Router) {
   }
 
   nombreCurso: string = '';
@@ -40,12 +40,14 @@ export class TrainingComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarCurso = false;
+      this.isEditing = !this.isEditing;
       console.log(idx);
       this.eduServ.details(idx).subscribe(datax => {
         this.eduEdit = datax
       }, err => {
         alert("Error al modificar educacion");
-        this.router.navigate([''])
+        this.router.navigate(['']);
+        window.location.reload();
       }
       )
     }
@@ -57,8 +59,8 @@ export class TrainingComponent implements OnInit {
       this.router.navigate(['']);
       window.location.reload();
     }, err => {
-      alert("Error al modificar experiencia");
-      this.router.navigate([''])
+      alert("Error al modificar educacion");
+      this.router.navigate(['']);
       window.location.reload();
     })
   }
@@ -77,6 +79,7 @@ export class TrainingComponent implements OnInit {
         window.location.reload();
       }, err => {
         alert("No se pudo eliminar");
+        window.location.reload();
         }
       )
     }
@@ -98,6 +101,7 @@ export class TrainingComponent implements OnInit {
   }
 
   onClick() {
+    this.isEditing = false;
     this.agregarCurso = !this.agregarCurso;
   }
 

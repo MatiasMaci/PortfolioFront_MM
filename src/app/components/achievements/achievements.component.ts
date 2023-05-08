@@ -41,6 +41,7 @@ export class AchievementsComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarLogro = false;
+      this.isEditing = !this.isEditing
       console.log(idx);
       this.achiServ.details(idx).subscribe(datax => {
         this.achiEdit = datax
@@ -96,6 +97,7 @@ export class AchievementsComponent implements OnInit {
 
   onClick() {
     this.agregarLogro = !this.agregarLogro;
+    this.isEditing = false;
   }
 
 }

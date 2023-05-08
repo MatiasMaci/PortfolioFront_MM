@@ -2,17 +2,19 @@
     <h3>Proyectos</h3>
     <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
     <ul>
-        <div *ngFor="let Proyectos of proj">
-            <li>
+        <div *ngFor="let Proyectos of proj"><!--Repeticion de los proyectos encontrados en una lista-->
+            <li style="margin-bottom: 10px;">
                 <h5>{{Proyectos.nombreProject}}</h5>
-                <p style="display: inline;">{{Proyectos.informacion}} </p>
+                <p style="display: inline;" >{{Proyectos.informacion}} </p>
                 <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Proyectos.id)"><i
                         class="bi bi-pencil"></i></button>
                 <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Proyectos.id)"><i
                         class="bi bi-x-lg"></i></button>
+                <!--Botones de edicion-->
             </li>
         </div>
         <div *ngIf="isLogged && agregarProyecto">
+            <!--Formulario para agregar un proyecto si el usuario esta loggeado-->
             <h3 class="fw-bold mb-2 text-uppercase">Please enter new project</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
@@ -29,7 +31,7 @@
                 </form>
             </div>
         </div>
-        <div *ngIf="isLogged && projEdit">
+        <div *ngIf="isLogged && projEdit && isEditing"><!--Formulario para editar un logro si el usuario esta loggeado-->
             <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected project</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onUpdate(projEdit.id)" novalidate>

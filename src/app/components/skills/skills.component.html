@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
     <div class="row centrar">    
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3"  *ngFor="let Skills of ski">
-                
+                <!--Repeticion de las habilidades encontradas en una lista-->
                 <circle-progress [percent]="(Skills.percent)" [radius]="100" [space]="10" [imageSrc]="'../../../assets/proteus.png'"
                 [title]="(Skills.nombreSkill)" [showImage]="true" [showUnits]="false" [showSubtitle]="false"
                     [showImage]="false" [imageHeight]="100" [imageWidth]="120" [outerStrokeGradient]="true"
@@ -14,41 +14,43 @@
                 <button style="display: inline;" class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Skills.id)"><i
                     class="bi bi-pencil"></i></button>
                 <button style="display: inline;" class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Skills.id)"><i class="bi bi-x-lg"></i></button></div>
+                <!--Botones de edicion-->
             </div>
     </div>
-        <div *ngIf="isLogged && agregarCurso">
-            <h3 class="fw-bold mb-2 text-uppercase">Please enter new education</h3>
+        <div *ngIf="isLogged && agregarCurso"><!--Formulario para agregar una habilidad si el usuario esta loggeado-->
+            <h3 class="fw-bold mb-2 text-uppercase">Please enter new skill</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
                     <div class="form-group mb-4">
-                        <label class="form-label" for="nombreSkill">Nombre del curso o formacion</label>
+                        <label class="form-label" for="nombreSkill">Nombre de la habilidad</label>
                         <input type="text" id="nombreSkill" name="nombreSkill" class="form-control" [(ngModel)]="nombreSkill"
                             required />
                     </div>
                     <div class="form-group mb-4">
-                        <label class="form-label" for="percent">Descripcion del curso</label>
+                        <label class="form-label" for="percent">Porcentaje de la habilidad</label>
                         <input type="number" id="percent" name="percent" class="form-control" [(ngModel)]="percent"
                             required />
                     </div>
-                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
                 </form>
             </div>
         </div>
-        <div *ngIf="isLogged && skillEdit">
-            <h3 class="fw-bold mb-2 text-uppercase">Please edit the education</h3>
+        <div *ngIf="isLogged && skillEdit && isEditing">
+            <!--Formulario para editar una habilidad si el usuario esta loggeado-->
+            <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected skill</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onUpdate(skillEdit.id)" novalidate>
                     <div class="form-group mb-4">
-                        <label class="form-label" for="nombreSkill">Nombre del curso o formacion</label>
+                        <label class="form-label" for="nombreSkill">Nombre de la habilidad</label>
                         <input type="text" id="nombreSkill" name="nombreSkill" class="form-control"
                             [(ngModel)]="skillEdit.nombreSkill" required />
                     </div>
                     <div class="form-group mb-4">
-                        <label class="form-label" for="percent">Descripcion del curso</label>
+                        <label class="form-label" for="percent">Porcentaje de la habilidad</label>
                         <input type="number" id="percent" name="percent" class="form-control" [(ngModel)]="skillEdit.percent"
                             required />
                     </div>
-                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Crear</button>
+                    <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
                 </form>
             </div>
         </div>
