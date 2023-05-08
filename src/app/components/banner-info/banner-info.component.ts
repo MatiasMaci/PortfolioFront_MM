@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { About } from 'src/app/model/about';
 import { Persona } from 'src/app/model/persona';
+import { AboutService } from 'src/app/service/about.service';
 import { ImagenService } from 'src/app/service/imagen.service';
 import { PersonaService } from 'src/app/service/persona.service';
 import { TokenService } from 'src/app/service/token.service';
@@ -14,16 +16,20 @@ export class BannerInfoComponent implements OnInit {
 
   persEdit: Persona = null;
   pers: Persona[] = [];
+  aboutEdit: About = null;
+  about: About[] = [];
 
-  constructor(public persServ: PersonaService, private tokenServ: TokenService, private router: Router, private imgServ: ImagenService) {
+  constructor(public persServ: PersonaService, private aboutServ: AboutService, private tokenServ: TokenService, private router: Router, private imgServ: ImagenService) {
   }
 
-  editar = false;
+  editarAbout = false;
+  editarPers = false;
   isLogged = false;
 
   ngOnInit() {
     //this.persServ.getPersonas().subscribe(data => { console.log(data); this.persona = data; });
     this.cargarPersona();
+    this.cargarAbout();
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
     } else {
@@ -37,7 +43,13 @@ export class BannerInfoComponent implements OnInit {
     )
   }
 
-  onUpdate(idx?: number) {
+  cargarAbout() {
+    this.aboutServ.details(1).subscribe(
+      data => { this.aboutEdit = data; console.log(data); }
+    )
+  }
+
+  onUpdatePersona(idx?: number) {
     //this.persEdit.imagen = this.imgServ.url;
     this.persServ.update(idx, this.persEdit).subscribe(data => {
       alert("modificacion exitosa");
@@ -50,16 +62,41 @@ export class BannerInfoComponent implements OnInit {
     })
   }
 
-  onEditInit() {
-    this.editar = !this.editar;
+  onUpdateAbout(idx?: number) {
+    //this.persEdit.imagen = this.imgServ.url;
+    this.aboutServ.update(idx, this.aboutEdit).subscribe(data => {
+      alert("modificacion exitosa");
+      this.router.navigate(['']);
+      window.location.reload();
+    }, err => {
+      alert("Error al modificar persona");
+      this.router.navigate([''])
+      window.location.reload();
+    })
+  }
+
+  onEditInitPers() {
+    this.editarPers = !this.editarPers;
       this.persServ.details(3).subscribe(datax => {
         this.persEdit = datax; console.log(datax);
       }, err => {
-        alert("Error al modificar educacion");
+        alert("Error al modificar persona");
         this.router.navigate([''])
       }
       )
   }
+
+  onEditInitAbout() {
+    this.editarAbout = !this.editarAbout;
+    this.aboutServ.details(1).subscribe(datax => {
+      this.aboutEdit = datax; console.log(datax);
+    }, err => {
+      alert("Error al modificar informacion");
+      this.router.navigate([''])
+    }
+    )
+  }
+
   uploadImage($event: any) {
     const id = 3;
     const name = 'perfil' + id;
