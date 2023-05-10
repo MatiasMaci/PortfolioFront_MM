@@ -14,17 +14,18 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class BannerInfoComponent implements OnInit {
 
-  persEdit: Persona = null;
+  persEdit: Persona = new Persona("","","");
   pers: Persona[] = [];
-  aboutEdit: About = null;
+  aboutEdit: About = new About("","","",0);
   about: About[] = [];
 
-  constructor(public persServ: PersonaService, private aboutServ: AboutService, private tokenServ: TokenService, private router: Router, private imgServ: ImagenService) {
+  constructor(public persServ: PersonaService, private aboutServ: AboutService, private tokenServ: TokenService, private router: Router, public imgServ: ImagenService) {
   }
 
   editarAbout = false;
   editarPers = false;
   isLogged = false;
+  loadingImage = false;
 
   ngOnInit() {
     //this.persServ.getPersonas().subscribe(data => { console.log(data); this.persona = data; });
@@ -38,7 +39,7 @@ export class BannerInfoComponent implements OnInit {
   }
 
   cargarPersona() {
-    this.persServ.details(3).subscribe(
+    this.persServ.details(1).subscribe(
       data => { this.persEdit = data; console.log(data); }
     )
   }
@@ -50,7 +51,7 @@ export class BannerInfoComponent implements OnInit {
   }
 
   onUpdatePersona(idx?: number) {
-    //this.persEdit.imagen = this.imgServ.url;
+    this.persEdit.imagen = this.imgServ.url;
     this.persServ.update(idx, this.persEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
@@ -63,7 +64,6 @@ export class BannerInfoComponent implements OnInit {
   }
 
   onUpdateAbout(idx?: number) {
-    //this.persEdit.imagen = this.imgServ.url;
     this.aboutServ.update(idx, this.aboutEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
@@ -77,7 +77,7 @@ export class BannerInfoComponent implements OnInit {
 
   onEditInitPers() {
     this.editarPers = !this.editarPers;
-      this.persServ.details(3).subscribe(datax => {
+      this.persServ.details(1).subscribe(datax => {
         this.persEdit = datax; console.log(datax);
       }, err => {
         alert("Error al modificar persona");
@@ -97,9 +97,14 @@ export class BannerInfoComponent implements OnInit {
     )
   }
 
+  loading() {
+    this.loadingImage = true;
+  }
+
   uploadImage($event: any) {
-    const id = 3;
+    const id = 1;
     const name = 'perfil' + id;
     this.imgServ.uploadImage($event, name);
+    this.loadingImage = false;
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { About } from '../model/about'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,10 @@ import { About } from '../model/about'
   
 export class AboutService {
 
-  aboutURL = 'http://localhost:8080/about'
+  aboutURL = environment.URL + '/about'
+
+  //aboutURL = 'http://localhost:8080/about'
+  //aboutURL = 'https://portfoliobackendmm.onrender.com/about'
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<About[]> {

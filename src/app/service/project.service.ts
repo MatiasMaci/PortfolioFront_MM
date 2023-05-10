@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { Project } from '../model/project';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  projURL = 'http://localhost:8080/project'
+  projURL = environment.URL + '/project'
+
+  //projURL = 'http://localhost:8080/project'
+  //projURL = 'https://portfoliobackendmm.onrender.com/project'
+
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Project[]> {

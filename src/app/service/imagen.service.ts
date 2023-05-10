@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage, ref, uploadBytes, list, getDownloadURL } from '@angular/fire/storage'
 
 @Injectable({
   providedIn: 'root'
@@ -7,20 +8,21 @@ export class ImagenService {
 
   url: string = "";
 
-  constructor() { }
+  constructor(private storage: Storage) { }
   //private storage: Storage
   public uploadImage($event: any, name: string) {
     const file = $event.target.files[0];
     console.log(file);
-/*    const imgRef = ref(this.storage, `imagen/`+ name)
+  
+    const imgRef = ref(this.storage, `imagen/` + name)
     uploadBytes(imgRef, file)
-      .then(response => {this.getImages()})
-      .catch(error => {console.log(error)})
-*/
+      .then(response => { this.getImages() })
+      .catch(error => { console.log(error) })
   }
+  
 
   getImages() {
-    /*
+    
     const imagesRef = ref(this.storage, `imagen`)
     list(imagesRef)
       .then(async response => { 
@@ -30,6 +32,6 @@ export class ImagenService {
         }
        })
       .catch(error => { console.log(error) })
-      */
+      
   }
 }

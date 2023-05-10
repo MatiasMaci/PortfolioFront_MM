@@ -8,3 +8,10 @@
 img {
     margin: 5px;
 }
+
+.botones {
+    display: inline-flex;
+    justify-content: flex-end;
+    float: right;
+    align-items: center;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Education } from 'src/app/model/education';
 import { EducationService } from 'src/app/service/education.service';
+import { ImagenService } from 'src/app/service/imagen.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -11,10 +12,10 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class TrainingComponent implements OnInit {
 
-  eduEdit: Education = null;
+  eduEdit: Education = new Education('','','','','');
   edu: Education[] = [];
   constructor(private eduServ: EducationService, private tokenServ: TokenService,
-    private router: Router) {
+    private router: Router, public imgServ: ImagenService) {
   }
 
   nombreCurso: string = '';
@@ -23,6 +24,7 @@ export class TrainingComponent implements OnInit {
   fechaFin: string = '';
   imagen: string = '';
 
+  loadingImage = false;
   isEditing = false;
   isLogged = false;
   agregarCurso = false;
@@ -57,6 +59,7 @@ export class TrainingComponent implements OnInit {
   }
 
   onUpdate(idx?: number) {
+    this.eduEdit.imagen = this.imgServ.url;
     this.eduServ.update(idx, this.eduEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
@@ -89,8 +92,9 @@ export class TrainingComponent implements OnInit {
   }
    
   onCreate() {
-    const educ = new Education(this.nombreCurso, this.infoCurso, this.fechaInicio, this.fechaFin, this.imagen);
-    this.eduServ.save(educ).subscribe(
+    this.eduEdit.imagen = this.imgServ.url;
+    //const educ = new Education(this.nombreCurso, this.infoCurso, this.fechaInicio, this.fechaFin, this.imagen);
+    this.eduServ.save(this.eduEdit).subscribe(
       data => {
         alert("Educacion añadida");
         this.router.navigate(['']);
@@ -108,4 +112,14 @@ export class TrainingComponent implements OnInit {
     this.agregarCurso = !this.agregarCurso;
   }
 
+  loading() {
+    this.loadingImage = true;
+  }
+
+  uploadImage($event: any) {
+    const name = 'perfil' + this.eduEdit.nombreCurso;
+    console.log(name),
+      this.imgServ.uploadImage($event, name);
+    this.loadingImage = false;
+  }
 }

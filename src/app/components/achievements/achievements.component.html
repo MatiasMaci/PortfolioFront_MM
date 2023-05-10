@@ -3,13 +3,20 @@
     <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
     <ul>
         <div *ngFor="let Logros of achi"><!--Repeticion de los logros encontrados en una lista-->
-            <li>
+            <div class="row">
+            <li class="col-10">
                 <h5 style="display: inline;">{{Logros.informacion}}</h5>
-                <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Logros.id)"><i
-                        class="bi bi-pencil"></i></button>
-                <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Logros.id)"><i class="bi bi-x-lg"></i></button>
-                <!--Botones de edicion-->
             </li>
+            <div class="col-2 botones">
+                <div>
+                    <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Logros.id)"><i
+                            class="bi bi-pencil"></i></button>
+                    <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Logros.id)"><i
+                            class="bi bi-x-lg"></i></button>
+                    <!--Botones de edicion-->
+                </div>
+            </div>
+            </div>
         </div>
         <div *ngIf="isLogged && agregarLogro"> <!--Formulario para agregar nuevo logro si el usuario esta loggeado-->
             <h3 class="fw-bold mb-2 text-uppercase">Please enter new achievements</h3>

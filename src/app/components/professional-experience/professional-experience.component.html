@@ -5,18 +5,22 @@
         <div *ngFor="let Experiencia of exp"><!--Repeticion de las experiencias encontradas en una lista-->
             <div class="row">
                 <li class="col-2">
-                    <img src="../../../assets/fotoperfil.jpg" class="img-fluid imagenfoto" alt="Foto Perfil">
+                    <img src={{Experiencia.imagen}} class="img-fluid imagenfoto" alt="Foto Perfil">
                 </li>
-                <div class="col-10" style="margin: auto;">
+                <div class="col-8" style="margin: auto;">
                     <h5>{{Experiencia.infoPuesto}}</h5>
                     <p style="display: inline;">{{Experiencia.nombreEmpresa}} </p>
                     <p style="display: inline;">({{Experiencia.fechaInicio}} - {{Experiencia.fechaFin}})</p>
-                    <button style="display: inline;" class="btn btn-success" *ngIf="isLogged" 
-                    (click)="onEditInit(Experiencia.id)"><i class="bi bi-pencil"></i></button>
-                    <button style="display: inline;" class="btn btn-danger" *ngIf="isLogged" 
-                    (click)="onDelete(Experiencia.id)"><i class="bi bi-x-lg"></i></button>
+                </div>
+                <div class="col-2 botones">
+                <div>
+                    <button style="display: inline;" class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Experiencia.id)"><i
+                            class="bi bi-pencil"></i></button>
+                    <button style="display: inline;" class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Experiencia.id)"><i
+                            class="bi bi-x-lg"></i></button>
                     <!--Botones de edicion-->
                 </div>
+            </div>
                 
             </div>
         </div>
@@ -27,25 +31,35 @@
                 <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
                     <div class="form-group mb-4">
                         <label class="form-label" for="nombreEmpresa">Nombre de la empresa</label>
-                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-control" [(ngModel)]="nombreEmpresa"
+                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-control" [(ngModel)]="expEdit.nombreEmpresa"
                             required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="infoPuesto">Descripcion del puesto</label>
-                        <input type="text" id="infoPuesto" name="infoPuesto" class="form-control" [(ngModel)]="infoPuesto" required />
+                        <input type="text" id="infoPuesto" name="infoPuesto" class="form-control" [(ngModel)]="expEdit.infoPuesto" required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="fechaInicio">Fecha de inicio</label>
-                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="fechaInicio" required />
+                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="expEdit.fechaInicio" required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="fechaFin">Fecha de fin</label>
-                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="fechaFin" required />
+                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="expEdit.fechaFin" required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="imagen">Imagen/Logo de la empresa</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="imagen" required />
-                    </div>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="expEdit.imagen"
+                            (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
+                        </div>
+                        <div *ngIf="loadingImage">
+                            <div class="spinner-border text-primary inline" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="d-inline"> Loading...</p>
+                        </div>
+                        <div class="form-group mb-4">
+                            <img [src]="imgServ.url" width="200px">
+                        </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
                 </form>
             </div>
@@ -75,8 +89,18 @@
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="imagen">Imagen/Logo de la empresa</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="expEdit.imagen" required />
-                    </div>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="expEdit.imagen"
+                            (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
+                        </div>
+                        <div *ngIf="loadingImage">
+                            <div class="spinner-border text-primary inline" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="d-inline"> Loading...</p>
+                        </div>
+                        <div class="form-group mb-4">
+                            <img [src]="imgServ.url" width="200px">
+                        </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
                 </form>
             </div>

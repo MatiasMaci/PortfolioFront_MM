@@ -2,13 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Achievement } from '../model/achievement';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AchievementService {
 
-  achiURL = 'http://localhost:8080/achievements'
+  achiURL = environment.URL + '/achievements'
+
+  //achiURL = 'http://localhost:8080/achievements'
+  //achiURL = 'https://portfoliobackendmm.onrender.com/achievements'
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Achievement[]> {

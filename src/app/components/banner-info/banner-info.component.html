@@ -35,13 +35,18 @@
                 <div class="form-group mb-4">
                     <label class="form-label" for="imagen">Imagen de perfil</label>
                     <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="persEdit.imagen"
-                        (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" />
+                        (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
                 </div>
-            <!--
-                <div class="form-group mb-4">
-                    <img [src]="imgServ.url">
+                <div *ngIf="loadingImage">
+                <div class="spinner-border text-primary inline" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
-            -->
+                <p class="d-inline"> Loading...</p>
+                </div>
+                <div class="form-group mb-4" >
+                    <img [src]="imgServ.url" width="200px">
+                </div>
+                
                 <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
             </form>
         </div>

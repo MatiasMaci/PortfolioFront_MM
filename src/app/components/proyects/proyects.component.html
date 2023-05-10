@@ -3,15 +3,20 @@
     <button type="button" class="btn btn-outline-success" *ngIf="isLogged" (click)="onClick()">+</button>
     <ul>
         <div *ngFor="let Proyectos of proj"><!--Repeticion de los proyectos encontrados en una lista-->
-            <li style="margin-bottom: 10px;">
+            <div class="row">
+            <li class="col-10" style="margin-bottom: 10px;">
                 <h5>{{Proyectos.nombreProject}}</h5>
                 <p style="display: inline;" >{{Proyectos.informacion}} </p>
+            </li>
+            <div class="col-2 botones">
+                <div>
                 <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Proyectos.id)"><i
                         class="bi bi-pencil"></i></button>
-                <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Proyectos.id)"><i
-                        class="bi bi-x-lg"></i></button>
+                <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Proyectos.id)"><i class="bi bi-x-lg"></i></button>
                 <!--Botones de edicion-->
-            </li>
+                </div>
+            </div>
+            </div>
         </div>
         <div *ngIf="isLogged && agregarProyecto">
             <!--Formulario para agregar un proyecto si el usuario esta loggeado-->

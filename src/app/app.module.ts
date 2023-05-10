@@ -20,6 +20,9 @@ import { FormsModule } from '@angular/forms';
 import { interceptorProvider } from './service/interceptor.service';
 import { NewExperienceComponent } from './components/professional-experience/new-experience.component';
 import { EditExperienceComponent } from './components/professional-experience/edit-experience.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { EditExperienceComponent } from './components/professional-experience/ed
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgCircleProgressModule.forRoot()
+    NgCircleProgressModule.forRoot(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage())
   ],
   providers: [
     interceptorProvider

@@ -2,13 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Skills } from '../model/skills';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SkillsService {
 
-  skillURL = 'http://localhost:8080/skills'
+  skillURL= environment.URL + '/skills'
+
+  //skillURL = 'http://localhost:8080/skills'
+  //skillURL = 'https://portfoliobackendmm.onrender.com/skills'
+
+
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Skills[]> {

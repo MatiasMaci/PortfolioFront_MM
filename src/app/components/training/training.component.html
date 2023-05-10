@@ -5,17 +5,21 @@
         <div *ngFor="let Education of edu"><!--Repeticion de las formaciones encontradas en una lista-->
             <div class="row">
                 <li class="col-2">
-                    <img src="../../../assets/fotoperfil.jpg" class="img-fluid imagenfoto" alt="Foto Perfil">
+                    <img src={{Education.imagen}} class="img-fluid imagenfoto" alt="Foto Perfil">
                 </li>
-                <div class="col-10" style="margin: auto;">
+                <div class="col-8" style="margin: auto;">
                     <h5>{{Education.nombreCurso}}</h5>
                     <p style="display: inline;">{{Education.infoCurso}} </p>
                     <p style="display: inline;">({{Education.fechaInicio}} - {{Education.fechaFin}})</p>
-                    <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Education.id)" ><i
-                            class="bi bi-pencil"></i></button>
-                    <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Education.id)"><i
-                            class="bi bi-x-lg"></i></button>
-                            <!--Botones de edicion-->
+                </div>
+                <div class="col-2 botones">
+                    <div>
+                        <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInit(Education.id)"><i
+                                class="bi bi-pencil"></i></button>
+                        <button class="btn btn-danger" *ngIf="isLogged" (click)="onDelete(Education.id)"><i
+                                class="bi bi-x-lg"></i></button>
+                        <!--Botones de edicion-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,27 +29,37 @@
                 <form #f="ngForm" (ngSubmit)="onCreate()" novalidate>
                     <div class="form-group mb-4">
                         <label class="form-label" for="nombreCurso">Nombre del curso o formacion</label>
-                        <input type="text" id="nombreCurso" name="nombreCurso" class="form-control" [(ngModel)]="nombreCurso"
+                        <input type="text" id="nombreCurso" name="nombreCurso" class="form-control" [(ngModel)]="eduEdit.nombreCurso"
                             required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="infoCurso">Descripcion del curso</label>
-                        <input type="text" id="infoCurso" name="infoCurso" class="form-control" [(ngModel)]="infoCurso"
+                        <input type="text" id="infoCurso" name="infoCurso" class="form-control" [(ngModel)]="eduEdit.infoCurso"
                             required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="fechaInicio">Fecha de inicio</label>
-                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="fechaInicio"
+                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="eduEdit.fechaInicio"
                             required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="fechaFin">Fecha de fin</label>
-                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="fechaFin" required />
+                        <input type="month" id="fechaFin" name="fechaFin" class="form-control" [(ngModel)]="eduEdit.fechaFin" required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="imagen">Imagen/Logo del curso/establecimiento/formacion</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="imagen" required />
-                    </div>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="eduEdit.imagen"
+                            (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
+                        </div>
+                        <div *ngIf="loadingImage">
+                            <div class="spinner-border text-primary inline" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="d-inline"> Loading...</p>
+                        </div>
+                        <div class="form-group mb-4">
+                            <img [src]="imgServ.url" width="200px">
+                        </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Add</button>
                 </form>
             </div>
@@ -76,8 +90,18 @@
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="imagen">Imagen/Logo del curso/establecimiento/formacion</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="eduEdit.imagen" required />
-                    </div>
+                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="eduEdit.imagen"
+                            (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
+                        </div>
+                        <div *ngIf="loadingImage">
+                            <div class="spinner-border text-primary inline" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="d-inline"> Loading...</p>
+                        </div>
+                        <div class="form-group mb-4">
+                            <img [src]="imgServ.url" width="200px">
+                        </div>
                     <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
                 </form>
             </div>
