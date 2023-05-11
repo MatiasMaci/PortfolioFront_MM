@@ -22,7 +22,8 @@ import { NewExperienceComponent } from './components/professional-experience/new
 import { EditExperienceComponent } from './components/professional-experience/edit-experience.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideStorage,getStorage } from '@angular/fire/storage';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { StorageModule } from '@angular/fire/storage'
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     FormsModule,
     NgCircleProgressModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    StorageModule
   ],
   providers: [
     interceptorProvider

@@ -1,6 +1,7 @@
 <div class="central">
     <div>
-        <img src="../../../assets/banner4.avif" class="img-fluid" width="100%" height="50%">
+        <img src={{bannerEdit.imagen}} class="img-fluid" width="100%" height="50%">
+        <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInitBan()"><i class="bi bi-pencil"></i></button>
         <!-- editar banner-->
     </div>
     <div class="row" style="text-align: center;">
@@ -35,7 +36,7 @@
                 <div class="form-group mb-4">
                     <label class="form-label" for="imagen">Imagen de perfil</label>
                     <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="persEdit.imagen"
-                        (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
+                        (change)="uploadImagePersona($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
                 </div>
                 <div *ngIf="loadingImage">
                 <div class="spinner-border text-primary inline" role="status">
@@ -74,6 +75,29 @@
                     <input type="number" id="edad" name="edad" class="form-control" [(ngModel)]="aboutEdit.edad"
                         required />
                 </div>
+                <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="isLogged && editarBanner"><!--Formulario para editar banner si el usuario esta loggeado-->
+        <h3 class="fw-bold mb-2 text-uppercase">Please edit banner</h3>
+        <div class="row">
+            <form #f="ngForm" (ngSubmit)="onUpdateBanner(bannerEdit.id)" novalidate>
+                <div class="form-group mb-4">
+                    <label class="form-label" for="imagen">Imagen del banner</label>
+                    <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="bannerEdit.imagen"
+                        (change)="uploadImageBanner($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
+                </div>
+                <div *ngIf="loadingImage">
+                    <div class="spinner-border text-primary inline" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="d-inline"> Loading...</p>
+                </div>
+                <div class="form-group mb-4">
+                    <img [src]="imgServ.url" width="200px">
+                </div>
+    
                 <button class="btn btn-outline-dark btn-lg px-5" type="submit">Edit</button>
             </form>
         </div>

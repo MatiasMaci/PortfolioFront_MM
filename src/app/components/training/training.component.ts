@@ -117,7 +117,7 @@ export class TrainingComponent implements OnInit {
   }
 
   uploadImage($event: any) {
-    const name = 'perfil' + this.eduEdit.nombreCurso;
+    const name = 'edu' + this.eduEdit.nombreCurso;
     console.log(name),
       this.imgServ.uploadImage($event, name);
     this.loadingImage = false;

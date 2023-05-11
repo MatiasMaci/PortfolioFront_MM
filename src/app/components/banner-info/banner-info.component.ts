@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { About } from 'src/app/model/about';
+import { Banner } from 'src/app/model/banner';
 import { Persona } from 'src/app/model/persona';
 import { AboutService } from 'src/app/service/about.service';
+import { BannerService } from 'src/app/service/banner.service';
 import { ImagenService } from 'src/app/service/imagen.service';
 import { PersonaService } from 'src/app/service/persona.service';
 import { TokenService } from 'src/app/service/token.service';
@@ -15,13 +17,13 @@ import { TokenService } from 'src/app/service/token.service';
 export class BannerInfoComponent implements OnInit {
 
   persEdit: Persona = new Persona("","","");
-  pers: Persona[] = [];
   aboutEdit: About = new About("","","",0);
-  about: About[] = [];
+  bannerEdit: Banner = new Banner("");
 
-  constructor(public persServ: PersonaService, private aboutServ: AboutService, private tokenServ: TokenService, private router: Router, public imgServ: ImagenService) {
+  constructor(public persServ: PersonaService, private aboutServ: AboutService, private bannerServ: BannerService, private tokenServ: TokenService, private router: Router, public imgServ: ImagenService) {
   }
 
+  editarBanner = false;
   editarAbout = false;
   editarPers = false;
   isLogged = false;
@@ -31,6 +33,7 @@ export class BannerInfoComponent implements OnInit {
     //this.persServ.getPersonas().subscribe(data => { console.log(data); this.persona = data; });
     this.cargarPersona();
     this.cargarAbout();
+    this.cargarBanner();
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
     } else {
@@ -47,6 +50,12 @@ export class BannerInfoComponent implements OnInit {
   cargarAbout() {
     this.aboutServ.details(1).subscribe(
       data => { this.aboutEdit = data; console.log(data); }
+    )
+  }
+
+  cargarBanner() {
+    this.bannerServ.details(1).subscribe(
+      data => { this.bannerEdit = data; console.log(data); }
     )
   }
 
@@ -75,6 +84,19 @@ export class BannerInfoComponent implements OnInit {
     })
   }
 
+  onUpdateBanner(idx?: number) {
+    this.bannerEdit.imagen = this.imgServ.url;
+    this.bannerServ.update(idx, this.bannerEdit).subscribe(data => {
+      alert("modificacion exitosa");
+      this.router.navigate(['']);
+      window.location.reload();
+    }, err => {
+      alert("Error al modificar banner");
+      this.router.navigate([''])
+      window.location.reload();
+    })
+  }
+
   onEditInitPers() {
     this.editarPers = !this.editarPers;
       this.persServ.details(1).subscribe(datax => {
@@ -97,13 +119,31 @@ export class BannerInfoComponent implements OnInit {
     )
   }
 
+  onEditInitBan() {
+    this.editarBanner = !this.editarBanner;
+    this.bannerServ.details(1).subscribe(datax => {
+      this.bannerEdit = datax; console.log(datax);
+    }, err => {
+      alert("Error al modificar banner");
+      this.router.navigate([''])
+    }
+    )
+  }
+
   loading() {
     this.loadingImage = true;
   }
 
-  uploadImage($event: any) {
+  uploadImagePersona($event: any) {
     const id = 1;
     const name = 'perfil' + id;
+    this.imgServ.uploadImage($event, name);
+    this.loadingImage = false;
+  }
+
+  uploadImageBanner($event: any) {
+    const id = 2;
+    const name = 'banner' + id;
     this.imgServ.uploadImage($event, name);
     this.loadingImage = false;
   }

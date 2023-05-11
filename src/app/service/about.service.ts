@@ -24,12 +24,10 @@ export class AboutService {
     return this.httpClient.get<About>(this.aboutURL + `/detail/${id}`);
   }
 
-  /*
   //Crear nueva About
   public save(about: About): Observable<any> {
     return this.httpClient.post<any>(this.aboutURL + '/create', about);
   }
-  */
 
   public update(id: number, about: About): Observable<any> {
     return this.httpClient.put<any>(this.aboutURL + `/update/${id}`, about);

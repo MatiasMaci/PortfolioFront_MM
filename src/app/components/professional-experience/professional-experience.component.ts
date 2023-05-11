@@ -118,7 +118,7 @@ export class ProfessionalExperienceComponent implements OnInit {
   }
 
   uploadImage($event: any) {
-    const name = 'perfil' + this.expEdit.nombreEmpresa;
+    const name = 'expe' + this.expEdit.nombreEmpresa;
     console.log(name),
     this.imgServ.uploadImage($event, name);
     this.loadingImage = false;
