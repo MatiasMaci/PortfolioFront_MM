@@ -1,8 +1,12 @@
+.margin{
 
+    margin: 0;
+    padding: 10px;
+}
 
 body {
     height: 100vh;
-    background: gray;
+    background: black;
     display: flex;
     align-items: center;
 }
@@ -14,7 +18,7 @@ body {
 
     position: relative;
 
-    background: linear-gradient(#b7d6c7, transparent) #ffe2d1;
+    background: linear-gradient(black, transparent) #470044;
     /*linear-gradient(#90ebff, white);*/
     transition: background-color 1s linear;
     overflow: hidden;
@@ -51,9 +55,6 @@ body {
     animation: animarDino 0.25s steps(2) infinite;
 }
 
-.dino-estrellado {
-    background-position-x: -252px;
-}
 
 .suelo {
     width: 200%;
@@ -67,37 +68,7 @@ body {
     background-size: 50% 42px;
 
 }
-/*
-.cactus {
-    width: 46px;
-    height: 96px;
 
-    position: absolute;
-    bottom: 16px;
-    left: 600px;
-    z-index: 1;
-
-    background: url(../../../assets/cactus1.png) no-repeat;
-}
-
-.cactus2 {
-    width: 98px;
-    height: 66px;
-
-    background: url(../../../assets/cactus2.png) no-repeat;
-}
-
-.nube {
-    width: 92px;
-    height: 26px;
-
-    position: absolute;
-    z-index: 0;
-
-    background: url(../../../assets/nube.png) no-repeat;
-    background-size: 92px 26px;
-}
-*/
 .score {
     width: 100px;
     height: 30px;
@@ -112,20 +83,6 @@ body {
     font-size: 30px;
     font-weight: bold;
     text-align: right;
-}
-
-.game-over {
-    display: none;
-
-    position: absolute;
-    width: 100%;
-
-
-    text-align: center;
-    color: #7e928b;
-    font-size: 30px;
-    font-family: Verdana;
-    font-weight: 700;
 }
 
 @keyframes animarDino {

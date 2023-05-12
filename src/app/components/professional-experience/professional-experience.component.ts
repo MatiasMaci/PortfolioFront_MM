@@ -33,13 +33,11 @@ export class ProfessionalExperienceComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarExperiencia();
+    this.isEditing = false;
+    this.agregarExperiencia = false;
     console.log(environment.URL);
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
-      console.log(this.isEditing);
-      if (this.isEditing == true) {
-        this.onEditInit();
-      }
     } else {
       this.isLogged = false;
     }
@@ -55,8 +53,9 @@ export class ProfessionalExperienceComponent implements OnInit {
         this.expServ.details(idx).subscribe(datax => {
           this.expEdit = datax, this.imgServ.url = this.expEdit.imagen;
         }, err => {
-          alert("Error al modificar habilidad");
+          alert("Error al modificar experiencia");
           this.router.navigate([''])
+          this.ngOnInit();
         }
         )
       }
@@ -73,7 +72,7 @@ export class ProfessionalExperienceComponent implements OnInit {
     this.expServ.update(idx, this.expEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar experiencia");
       this.router.navigate([''])
@@ -92,10 +91,9 @@ export class ProfessionalExperienceComponent implements OnInit {
       this.expServ.delete(id).subscribe(data => {
         this.cargarExperiencia();
         alert("Se elimino correctamente");
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("No se pudo eliminar");
-        window.location.reload();
       }
       )
     }
@@ -106,9 +104,9 @@ export class ProfessionalExperienceComponent implements OnInit {
     //const expe = new Experiencia(this.nombreEmpresa, this.infoPuesto, this.fechaInicio, this.fechaFin, this.imagen);
     this.expServ.save(this.expEdit).subscribe(
       data => {
-        alert("Habilidad añadida");
+        alert("Experiencia añadida");
         this.router.navigate(['']);
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
@@ -118,6 +116,8 @@ export class ProfessionalExperienceComponent implements OnInit {
 
   onClick() {
     this.isEditing = false;
+    this.expEdit = new Experiencia('', '', '', '', '')
+    this.imgServ.url = "";
     this.agregarExperiencia = !this.agregarExperiencia;
   }
 
@@ -132,40 +132,3 @@ export class ProfessionalExperienceComponent implements OnInit {
     this.loadingImage = false;
   }
 }
-
- /*
-  expe: Experiencia[] = [];
-  constructor(private expServ: ExperienciaService, private tokenServ: TokenService) {
-  }
-
-  isLogged = false;
-
-  ngOnInit(): void {
-
-    this.cargarExperiencia();
-    if (this.tokenServ.getToken()) {
-      this.isLogged = true;
-    } else {
-      this.isLogged = false;
-    }
-    
-  }
-
-  cargarExperiencia(): void{
-    this.expServ.lista().subscribe(
-      data => { this.expe = data; }
-    )
-  }
-
-  onDelete(id?: number) {
-    if (id != undefined) {
-      this.expServ.delete(id).subscribe(data => {
-        this.cargarExperiencia();
-      }, err => {
-        alert("No se pudo eliminar");
-      }
-      )
-    }
-    
-  }
-}*/

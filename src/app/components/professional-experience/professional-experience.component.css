@@ -14,3 +14,12 @@ img{
     float: right;
     align-items: center;
 }
+
+.fechasInicio{
+    display: inline-block;
+    padding-right: inherit;
+}
+.fechasFin{
+    display: inline-block;
+    padding-left: inherit;
+}

@@ -28,12 +28,10 @@ export class SkillsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarEducation();
+    this.isEditing = false;
+    this.agregarCurso = false;
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
-      console.log(this.isEditing);
-      if (this.isEditing == true) {
-        this.onEditInit();
-      }
     } else {
       this.isLogged = false;
     }
@@ -51,7 +49,7 @@ export class SkillsComponent implements OnInit {
         }, err => {
           alert("Error al modificar habilidad");
           this.router.navigate([''])
-          window.location.reload();
+          this.ngOnInit();
         }
         )
       } else {
@@ -65,11 +63,10 @@ export class SkillsComponent implements OnInit {
     this.skillServ.update(idx, this.skillEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar habilidad");
       this.router.navigate([''])
-      window.location.reload();
     })
     }
     else {
@@ -88,10 +85,9 @@ export class SkillsComponent implements OnInit {
       this.skillServ.delete(id).subscribe(data => {
         this.cargarEducation();
         alert("Se elimino correctamente");
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("No se pudo eliminar");
-        window.location.reload();
       }
       )
     }
@@ -104,11 +100,10 @@ export class SkillsComponent implements OnInit {
         data => {
           alert("Habilidad añadida");
           this.router.navigate(['']);
-          window.location.reload();
+          this.ngOnInit();
         }, err => {
           alert("Fallo");
           this.router.navigate(['']);
-          window.location.reload();
         }
       )
     }
@@ -119,6 +114,7 @@ export class SkillsComponent implements OnInit {
 
   onClick() {
     this.isEditing = false;
+    this.skillEdit = new Skills('', 0)
     this.agregarCurso = !this.agregarCurso;
   }
 

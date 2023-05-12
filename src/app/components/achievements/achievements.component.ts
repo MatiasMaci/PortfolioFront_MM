@@ -26,6 +26,8 @@ export class AchievementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarLogros();
+    this.isEditing = false;
+    this.agregarLogro = false;
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
     } else {
@@ -51,7 +53,8 @@ export class AchievementsComponent implements OnInit {
         }, err => {
           alert("Error al modificar logros");
           this.router.navigate([''])
-          window.location.reload();
+          this.ngOnInit();
+          //window.location.reload();
         }
         )
       } else {
@@ -64,11 +67,10 @@ export class AchievementsComponent implements OnInit {
     this.achiServ.update(idx, this.achiEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar logro");
       this.router.navigate([''])
-      window.location.reload();
     })
   }
 
@@ -77,10 +79,9 @@ export class AchievementsComponent implements OnInit {
       this.achiServ.delete(id).subscribe(data => {
         this.cargarLogros();
         alert("Se elimino correctamente");
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("No se pudo eliminar");
-        window.location.reload();
       }
       )
     }
@@ -92,17 +93,17 @@ export class AchievementsComponent implements OnInit {
       data => {
         alert("Logro añadido");
         this.router.navigate(['']);
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
-        window.location.reload();
       }
     )
   }
 
   onClick() {
     this.agregarLogro = !this.agregarLogro;
+    this.achiEdit = new Achievement('');
     this.isEditing = false;
   }
 

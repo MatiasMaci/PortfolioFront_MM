@@ -32,12 +32,10 @@ export class TrainingComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarEducation();
+    this.isEditing = false;
+    this.agregarCurso = false;
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
-      console.log(this.isEditing);
-      if (this.isEditing == true) {
-        this.onEditInit();
-      }
     } else {
       this.isLogged = false;
     }
@@ -54,7 +52,7 @@ export class TrainingComponent implements OnInit {
           this.eduEdit = datax, this.imgServ.url = this.eduEdit.imagen;
         }, err => {
           alert("Error al modificar educacion");
-          this.router.navigate(['']);
+          this.ngOnInit();
         }
         )
       } else {
@@ -68,7 +66,7 @@ export class TrainingComponent implements OnInit {
     this.eduServ.update(idx, this.eduEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar educacion");
       this.router.navigate(['']);
@@ -87,7 +85,7 @@ export class TrainingComponent implements OnInit {
         this.cargarEducation();
         alert("Se elimino correctamente");
         this.router.navigate(['']);
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("No se pudo eliminar");
         this.router.navigate(['']);
@@ -103,17 +101,18 @@ export class TrainingComponent implements OnInit {
       data => {
         alert("Educacion añadida");
         this.router.navigate(['']);
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
-        window.location.reload();
       }
     )
   }
 
   onClick() {
     this.isEditing = false;
+    this.imgServ.url = "";
+    this.eduEdit = new Education('', '', '', '', '')
     this.agregarCurso = !this.agregarCurso;
   }
 

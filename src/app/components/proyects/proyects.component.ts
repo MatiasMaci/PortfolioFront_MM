@@ -27,6 +27,8 @@ export class ProyectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarProjectos();
+    this.isEditing = false;
+    this.agregarProyecto = false;
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
     } else {
@@ -52,7 +54,7 @@ export class ProyectsComponent implements OnInit {
         }, err => {
           alert("Error al modificar proyecto");
           this.router.navigate([''])
-          window.location.reload();
+          this.ngOnInit();
         }
         )
       }
@@ -66,11 +68,10 @@ export class ProyectsComponent implements OnInit {
     this.projServ.update(idx, this.projEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar proyecto");
       this.router.navigate([''])
-      window.location.reload();
     })
   }
 
@@ -79,10 +80,10 @@ export class ProyectsComponent implements OnInit {
       this.projServ.delete(id).subscribe(data => {
         this.cargarProjectos();
         alert("Se elimino correctamente");
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("No se pudo eliminar");
-        window.location.reload();
+        //window.location.reload();
       }
       )
     }
@@ -94,17 +95,17 @@ export class ProyectsComponent implements OnInit {
       data => {
         alert("Proyecto añadido");
         this.router.navigate(['']);
-        window.location.reload();
+        this.ngOnInit();
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
-        window.location.reload();
       }
     )
   }
 
   onClick() {
     this.agregarProyecto = !this.agregarProyecto;
+    this.projEdit = new Project('', '')
     this.isEditing = false;
   }
 

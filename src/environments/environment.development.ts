@@ -10,6 +10,6 @@ export const environment = {
   },
 
   production: true,
-  //URL: 'https://portfoliobackendmm.onrender.com',
-  URL: 'http://localhost:8080',
+  URL: 'https://portfoliobackendmm.onrender.com',
+  //URL: 'http://localhost:8080',
 };

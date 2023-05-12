@@ -34,6 +34,9 @@ export class BannerInfoComponent implements OnInit {
     this.cargarPersona();
     this.cargarAbout();
     this.cargarBanner();
+    this.editarBanner = false;
+    this.editarAbout = false;
+    this.editarPers = false;
     if (this.tokenServ.getToken()) {
       this.isLogged = true;
     } else {
@@ -64,11 +67,10 @@ export class BannerInfoComponent implements OnInit {
     this.persServ.update(idx, this.persEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar persona");
       this.router.navigate([''])
-      window.location.reload();
     })
   }
 
@@ -76,11 +78,10 @@ export class BannerInfoComponent implements OnInit {
     this.aboutServ.update(idx, this.aboutEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
-      alert("Error al modificar persona");
+      alert("Error al modificar informacion");
       this.router.navigate([''])
-      window.location.reload();
     })
   }
 
@@ -89,43 +90,51 @@ export class BannerInfoComponent implements OnInit {
     this.bannerServ.update(idx, this.bannerEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
-      window.location.reload();
+      this.ngOnInit();
     }, err => {
       alert("Error al modificar banner");
       this.router.navigate([''])
-      window.location.reload();
     })
   }
 
   onEditInitPers() {
     this.editarPers = !this.editarPers;
+    this.editarAbout = false;
+    this.editarBanner = false;
       this.persServ.details(1).subscribe(datax => {
         this.persEdit = datax; this.imgServ.url = this.persEdit.imagen;
       }, err => {
         alert("Error al modificar persona");
         this.router.navigate([''])
+        this.ngOnInit();
       }
       )
   }
 
   onEditInitAbout() {
     this.editarAbout = !this.editarAbout;
+    this.editarPers = false;
+    this.editarBanner = false;
     this.aboutServ.details(1).subscribe(datax => {
       this.aboutEdit = datax;
     }, err => {
       alert("Error al modificar informacion");
       this.router.navigate([''])
+      this.ngOnInit();
     }
     )
   }
 
   onEditInitBan() {
     this.editarBanner = !this.editarBanner;
+    this.editarAbout = false;
+    this.editarPers = false;
     this.bannerServ.details(1).subscribe(datax => {
       this.bannerEdit = datax; this.imgServ.url = this.bannerEdit.imagen;
     }, err => {
       alert("Error al modificar banner");
       this.router.navigate([''])
+      this.ngOnInit();
     }
     )
   }
