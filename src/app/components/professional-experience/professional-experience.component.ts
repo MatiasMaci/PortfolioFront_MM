@@ -24,6 +24,7 @@ export class ProfessionalExperienceComponent implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = '';
   imagen: string = '';
+  idBoton: number = 0;
 
   loadingImage = false;
   isEditing = false;
@@ -47,34 +48,42 @@ export class ProfessionalExperienceComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarExperiencia = false;
-      this.isEditing = !this.isEditing;
-      console.log(idx);
-      this.expServ.details(idx).subscribe(datax => {
-        this.expEdit = datax
-      }, err => {
-        alert("Error al modificar habilidad");
-        this.router.navigate([''])
+      if (idx != this.idBoton) {
+        this.isEditing = true;
+        this.idBoton = idx;
+        console.log(idx);
+        this.expServ.details(idx).subscribe(datax => {
+          this.expEdit = datax, this.imgServ.url = this.expEdit.imagen;
+        }, err => {
+          alert("Error al modificar habilidad");
+          this.router.navigate([''])
+        }
+        )
       }
-      )
+      else{
+        this.isEditing = !this.isEditing;
+      }
+      
     }
   }
 
   onUpdate(idx?: number) {
     this.expEdit.imagen = this.imgServ.url;
+    console.log(this.expEdit.fechaFin)
     this.expServ.update(idx, this.expEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
       window.location.reload();
     }, err => {
-      alert("Error al modificar habilidad");
+      alert("Error al modificar experiencia");
       this.router.navigate([''])
-      window.location.reload();
+
     })
   }
 
   cargarExperiencia(): void {
     this.expServ.lista().subscribe(
-      data => { this.exp = data; }
+      data => { this.exp = data; console.log()}
     )
   }
 
@@ -103,7 +112,6 @@ export class ProfessionalExperienceComponent implements OnInit {
       }, err => {
         alert("Fallo");
         this.router.navigate(['']);
-        window.location.reload();
       }
     )
   }

@@ -18,6 +18,7 @@ export class AchievementsComponent implements OnInit {
   }
 
   informacion: string = '';
+  idBoton: number = 0;
 
   isEditing = false;
   isLogged = false;
@@ -41,16 +42,21 @@ export class AchievementsComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarLogro = false;
-      this.isEditing = !this.isEditing
-      console.log(idx);
-      this.achiServ.details(idx).subscribe(datax => {
-        this.achiEdit = datax
-      }, err => {
-        alert("Error al modificar logros");
-        this.router.navigate([''])
-        window.location.reload();
+      if (idx != this.idBoton) {
+        this.isEditing = true;
+        this.idBoton = idx;
+        console.log(idx);
+        this.achiServ.details(idx).subscribe(datax => {
+          this.achiEdit = datax
+        }, err => {
+          alert("Error al modificar logros");
+          this.router.navigate([''])
+          window.location.reload();
+        }
+        )
+      } else {
+        this.isEditing = !this.isEditing;
       }
-      )
     }
   }
 

@@ -23,6 +23,7 @@ export class TrainingComponent implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = '';
   imagen: string = '';
+  idBoton: number = 0;
 
   loadingImage = false;
   isEditing = false;
@@ -45,16 +46,20 @@ export class TrainingComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarCurso = false;
-      this.isEditing = !this.isEditing;
-      console.log(idx);
-      this.eduServ.details(idx).subscribe(datax => {
-        this.eduEdit = datax
-      }, err => {
-        alert("Error al modificar educacion");
-        this.router.navigate(['']);
-        window.location.reload();
+      if (idx != this.idBoton) {
+        this.isEditing = true;
+        this.idBoton = idx;
+        console.log(idx);
+        this.eduServ.details(idx).subscribe(datax => {
+          this.eduEdit = datax, this.imgServ.url = this.eduEdit.imagen;
+        }, err => {
+          alert("Error al modificar educacion");
+          this.router.navigate(['']);
+        }
+        )
+      } else {
+        this.isEditing = !this.isEditing;
       }
-      )
     }
   }
 
@@ -67,7 +72,6 @@ export class TrainingComponent implements OnInit {
     }, err => {
       alert("Error al modificar educacion");
       this.router.navigate(['']);
-      window.location.reload();
     })
   }
 
@@ -82,10 +86,11 @@ export class TrainingComponent implements OnInit {
       this.eduServ.delete(id).subscribe(data => {
         this.cargarEducation();
         alert("Se elimino correctamente");
+        this.router.navigate(['']);
         window.location.reload();
       }, err => {
         alert("No se pudo eliminar");
-        window.location.reload();
+        this.router.navigate(['']);
         }
       )
     }

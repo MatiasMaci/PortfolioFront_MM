@@ -19,6 +19,7 @@ export class ProyectsComponent implements OnInit {
 
   nombreProject: string = '';
   informacion: string = '';
+  idBoton: number = 0;
 
   isEditing = false;
   isLogged = false;
@@ -42,16 +43,22 @@ export class ProyectsComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarProyecto = false;
-      this.isEditing = !this.isEditing;
-      console.log(idx);
-      this.projServ.details(idx).subscribe(datax => {
-        this.projEdit = datax
-      }, err => {
-        alert("Error al modificar proyecto");
-        this.router.navigate([''])
-        window.location.reload();
+      if (idx != this.idBoton) {
+        this.isEditing = true;
+        this.idBoton = idx;
+        console.log(idx);
+        this.projServ.details(idx).subscribe(datax => {
+          this.projEdit = datax
+        }, err => {
+          alert("Error al modificar proyecto");
+          this.router.navigate([''])
+          window.location.reload();
+        }
+        )
       }
-      )
+      else {
+        this.isEditing = !this.isEditing;
+      }
     }
   }
 

@@ -100,7 +100,7 @@ export class BannerInfoComponent implements OnInit {
   onEditInitPers() {
     this.editarPers = !this.editarPers;
       this.persServ.details(1).subscribe(datax => {
-        this.persEdit = datax; console.log(datax);
+        this.persEdit = datax; this.imgServ.url = this.persEdit.imagen;
       }, err => {
         alert("Error al modificar persona");
         this.router.navigate([''])
@@ -111,7 +111,7 @@ export class BannerInfoComponent implements OnInit {
   onEditInitAbout() {
     this.editarAbout = !this.editarAbout;
     this.aboutServ.details(1).subscribe(datax => {
-      this.aboutEdit = datax; console.log(datax);
+      this.aboutEdit = datax;
     }, err => {
       alert("Error al modificar informacion");
       this.router.navigate([''])
@@ -122,7 +122,7 @@ export class BannerInfoComponent implements OnInit {
   onEditInitBan() {
     this.editarBanner = !this.editarBanner;
     this.bannerServ.details(1).subscribe(datax => {
-      this.bannerEdit = datax; console.log(datax);
+      this.bannerEdit = datax; this.imgServ.url = this.bannerEdit.imagen;
     }, err => {
       alert("Error al modificar banner");
       this.router.navigate([''])

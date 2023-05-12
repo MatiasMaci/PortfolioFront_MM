@@ -90,7 +90,7 @@
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="imagen">Imagen/Logo del curso/establecimiento/formacion</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="eduEdit.imagen"
+                        <input type="file" id="imagen" name="imagen" class="form-control" 
                             (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
                         </div>
                         <div *ngIf="loadingImage">

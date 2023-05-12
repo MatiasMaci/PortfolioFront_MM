@@ -66,7 +66,7 @@
         </div>
         <div *ngIf="isLogged && expEdit && isEditing">
             <!--Formulario para editar una habilidad si el usuario esta loggeado-->
-            <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected skill</h3>
+            <h3 class="fw-bold mb-2 text-uppercase">Please edit the selected experience</h3>
             <div class="row">
                 <form #f="ngForm" (ngSubmit)="onUpdate(expEdit.id)" novalidate>
                     <div class="form-group mb-4">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="fechaInicio">Fecha de inicio</label>
-                        <input type="month" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="expEdit.fechaInicio" required />
+                        <input type="month" max="2023" id="fechaInicio" name="fechaInicio" class="form-control" [(ngModel)]="expEdit.fechaInicio" required />
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="fechaFin">Fecha de fin</label>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="form-group mb-4">
                         <label class="form-label" for="imagen">Imagen/Logo de la empresa</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="expEdit.imagen"
+                        <input type="file" id="imagen" name="imagen" class="form-control" 
                             (change)="uploadImage($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
                         </div>
                         <div *ngIf="loadingImage">

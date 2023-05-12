@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginUsuario } from 'src/app/model/login-usuario';
 import { AuthService } from 'src/app/service/auth.service';
@@ -19,8 +20,8 @@ export class LoginComponent implements OnInit {
   roles: string[]=[];
   errMsj!: string;
 
-  constructor(private tokenService: TokenService, private authService: AuthService, private router:Router) {
-  }
+  constructor(private tokenService: TokenService, private authService: AuthService, private router: Router) {}
+  
 
   ngOnInit(): void {
     if (this.tokenService.getToken()) {
@@ -44,9 +45,9 @@ export class LoginComponent implements OnInit {
       this.isLogged = false;
       this.isLoggedFail = true;
       this.errMsj = err.error.mensaje;
+      alert("Error al ingresar");
       console.log(this.errMsj);
     }
     )
   }
-
 }

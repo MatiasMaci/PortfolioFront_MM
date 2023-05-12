@@ -18,12 +18,11 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { interceptorProvider } from './service/interceptor.service';
-import { NewExperienceComponent } from './components/professional-experience/new-experience.component';
-import { EditExperienceComponent } from './components/professional-experience/edit-experience.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { StorageModule } from '@angular/fire/storage'
+import { StorageModule } from '@angular/fire/storage';
+import { Error404Component } from './components/error404/error404.component'
 
 @NgModule({
   declarations: [
@@ -39,8 +38,7 @@ import { StorageModule } from '@angular/fire/storage'
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    NewExperienceComponent,
-    EditExperienceComponent
+    Error404Component,
   ],
   imports: [
     BrowserModule,

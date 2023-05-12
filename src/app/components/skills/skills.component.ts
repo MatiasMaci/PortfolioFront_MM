@@ -13,12 +13,14 @@ export class SkillsComponent implements OnInit {
 
   skillEdit: Skills = null;
   ski: Skills[] = [];
+
   constructor(private skillServ: SkillsService, private tokenServ: TokenService,
     private router: Router) {
   }
 
   nombreSkill: string = '';
   percent: number = 0;
+  idBoton: number = 0;
 
   isEditing = false;
   isLogged = false;
@@ -40,20 +42,26 @@ export class SkillsComponent implements OnInit {
   onEditInit(idx?: number) {
     if (idx != undefined) {
       this.agregarCurso = false;
-      this.isEditing = !this.isEditing;
-      console.log(idx);
-      this.skillServ.details(idx).subscribe(datax => {
-        this.skillEdit = datax
-      }, err => {
-        alert("Error al modificar habilidad");
-        this.router.navigate([''])
-        window.location.reload();
+      if (idx != this.idBoton) {
+        this.isEditing = true;
+        this.idBoton = idx;
+        console.log(idx);
+        this.skillServ.details(idx).subscribe(datax => {
+          this.skillEdit = datax
+        }, err => {
+          alert("Error al modificar habilidad");
+          this.router.navigate([''])
+          window.location.reload();
+        }
+        )
+      } else {
+        this.isEditing = !this.isEditing;
       }
-      )
     }
   }
 
   onUpdate(idx?: number) {
+    if (this.skillEdit.percent <= 100 && this.skillEdit.percent >= 1) {
     this.skillServ.update(idx, this.skillEdit).subscribe(data => {
       alert("modificacion exitosa");
       this.router.navigate(['']);
@@ -63,6 +71,10 @@ export class SkillsComponent implements OnInit {
       this.router.navigate([''])
       window.location.reload();
     })
+    }
+    else {
+      alert("Error en el porcentaje");
+    }
   }
 
   cargarEducation(): void {
@@ -86,18 +98,23 @@ export class SkillsComponent implements OnInit {
   }
 
   onCreate() {
-    const skix = new Skills(this.nombreSkill, this.percent);
-    this.skillServ.save(skix).subscribe(
-      data => {
-        alert("Habilidad añadida");
-        this.router.navigate(['']);
-        window.location.reload();
-      }, err => {
-        alert("Fallo");
-        this.router.navigate(['']);
-        window.location.reload();
-      }
-    )
+    if (this.percent <= 100 && this.percent >= 1) {
+      const skix = new Skills(this.nombreSkill, this.percent);
+      this.skillServ.save(skix).subscribe(
+        data => {
+          alert("Habilidad añadida");
+          this.router.navigate(['']);
+          window.location.reload();
+        }, err => {
+          alert("Fallo");
+          this.router.navigate(['']);
+          window.location.reload();
+        }
+      )
+    }
+    else {
+      alert("Error en el porcentaje");
+    }
   }
 
   onClick() {

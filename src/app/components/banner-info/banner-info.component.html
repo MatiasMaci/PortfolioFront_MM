@@ -1,8 +1,10 @@
 <div class="central">
     <div>
         <img src={{bannerEdit.imagen}} class="img-fluid" width="100%" height="50%">
+        <div style="text-align: center;">
         <button class="btn btn-success" *ngIf="isLogged" (click)="onEditInitBan()"><i class="bi bi-pencil"></i></button>
         <!-- editar banner-->
+        </div>
     </div>
     <div class="row" style="text-align: center;">
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"><!--Foto y nombre del usuario-->
@@ -35,7 +37,7 @@
                 </div>
                 <div class="form-group mb-4">
                     <label class="form-label" for="imagen">Imagen de perfil</label>
-                    <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="persEdit.imagen"
+                    <input type="file" id="imagen" name="imagen" class="form-control"
                         (change)="uploadImagePersona($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
                 </div>
                 <div *ngIf="loadingImage">
@@ -85,7 +87,7 @@
             <form #f="ngForm" (ngSubmit)="onUpdateBanner(bannerEdit.id)" novalidate>
                 <div class="form-group mb-4">
                     <label class="form-label" for="imagen">Imagen del banner</label>
-                    <input type="file" id="imagen" name="imagen" class="form-control" [(ngModel)]="bannerEdit.imagen"
+                    <input type="file" id="imagen" name="imagen" class="form-control"
                         (change)="uploadImageBanner($event)" (click)="loading()" accept=".jpg, .jpeg, .png" />
                 </div>
                 <div *ngIf="loadingImage">
